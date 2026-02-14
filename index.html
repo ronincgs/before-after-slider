@@ -3,24 +3,101 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Before / After Slider</title>
-
-<script src="https://elfsightcdn.com/platform.js" async></script>
+<title>Before / After</title>
 
 <style>
-html, body {
-  margin: 0;
-  padding: 0;
-  background: transparent;
+* {
+  box-sizing: border-box;
 }
 
-.elfsight-app-e7e7a204-b7ba-43c0-8baa-cc60144e9f50 {
-  max-width: 100%;
+body {
+  margin: 0;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  overflow: hidden;
+}
+
+.wrapper img {
+  display: block;
+  width: 100%;
+}
+
+.after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  overflow: hidden;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  appearance: none;
+  width: 100%;
+  background: none;
+  cursor: ew-resize;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 100vh;
+  background: white;
+  cursor: ew-resize;
+  border: none;
+}
+
+.slider::-moz-range-thumb {
+  width: 22px;
+  height: 100vh;
+  background: white;
+  border: none;
+  cursor: ew-resize;
+}
+
+.line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  background: white;
+  pointer-events: none;
 }
 </style>
 </head>
 
 <body>
-<div class="elfsight-app-e7e7a204-b7ba-43c0-8baa-cc60144e9f50" data-elfsight-app-lazy></div>
+
+<div class="wrapper">
+  <img src="before.png" alt="Before">
+  <div class="after">
+    <img src="after.png" alt="After">
+  </div>
+  <div class="line"></div>
+  <input type="range" min="0" max="100" value="50" class="slider">
+</div>
+
+<script>
+const slider = document.querySelector('.slider');
+const after = document.querySelector('.after');
+const line = document.querySelector('.line');
+
+slider.addEventListener('input', (e) => {
+  const value = e.target.value;
+  after.style.width = value + '%';
+  line.style.left = value + '%';
+});
+</script>
+
 </body>
 </html>
